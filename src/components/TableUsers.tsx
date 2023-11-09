@@ -7,7 +7,6 @@ import { Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import AuthGateway from "../gateways/AuthGateway";
-import { Route } from "react-router-dom";
 
 
 interface IUser {

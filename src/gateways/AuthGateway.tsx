@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 interface RegisterAuthDto {
   email: string;
@@ -42,10 +41,7 @@ class AuthGateway {
 
     
   }
-  private redirect(path: string): void {
-    const navigate = useNavigate();
-    navigate(path);
-  }
+  
 }
 
 export default AuthGateway;

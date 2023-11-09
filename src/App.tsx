@@ -1,7 +1,7 @@
 import "./App.css";
 import { Login } from "./components/Login";
 import { Table } from "./components/TableCatalogo";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route} from "react-router-dom";
 import { TableUsers } from "./components/TableUsers";
 import { BrowserRouter } from "react-router-dom";
 
