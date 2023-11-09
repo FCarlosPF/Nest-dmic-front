@@ -1,0 +1,4 @@
+.contenedor-tabla-catalogo{
+    display: flex;
+    justify-content: space-around;
+}
