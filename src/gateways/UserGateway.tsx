@@ -11,7 +11,7 @@ class UserGateway {
 
   constructor() {
 
-    this.baseURL = 'http://localhost:3000/users';
+    this.baseURL = 'https://nest-dmic-postgres.onrender.com/users';
   }
 
   async getAll(): Promise<IUser[]> {

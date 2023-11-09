@@ -19,7 +19,7 @@ class AuthGateway {
 
 
   constructor() {
-    this.baseURL = 'http://localhost:3000/auth';
+    this.baseURL = 'https://nest-dmic-postgres.onrender.com/auth';
 
   }
 

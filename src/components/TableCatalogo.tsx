@@ -10,7 +10,7 @@ interface CatalogoItem {
 }
 
 export const Table = () => {
-  const baseUrl = "http://localhost:3000/catalogo"; // Reemplaza esto con la URL de tu API
+  const baseUrl = "https://nest-dmic-postgres.onrender.com/catalogo"; // Reemplaza esto con la URL de tu API
   const [catalogo, setCatalogo] = useState<CatalogoItem[]>([]);
   const catalogoGateway = new CatalogoGateway(baseUrl);
   const [nuevoElemento, setNuevoElemento] = useState<CatalogoItem>({
