@@ -6,7 +6,7 @@ interface CatalogoItem {
   iqms: number;
   familia: string;
   molde: string;
-  imagen: string;
+  foto: string;
 }
 
 export const TableChina = () => {
@@ -17,7 +17,7 @@ export const TableChina = () => {
     iqms: 0,
     familia: "",
     molde: "",
-    imagen: "",
+    foto: "",
   });
   const [busquedaIQMS, setBusquedaIQMS] = useState<number>(0);
   const [resultadoBusqueda, setResultadoBusqueda] =
@@ -43,7 +43,7 @@ export const TableChina = () => {
           iqms: 0,
           familia: "",
           molde: "",
-          imagen: "",
+          foto: "",
         });
       })
       .catch((error) =>
@@ -77,7 +77,6 @@ export const TableChina = () => {
       }
     }
   };
-
   return (
     <>
       <h2>Agregar Nuevo Elemento</h2>
@@ -108,9 +107,9 @@ export const TableChina = () => {
       <input
         type="text"
         placeholder="Foto"
-        value={nuevoElemento.imagen}
+        value={nuevoElemento.foto}
         onChange={(e) =>
-          setNuevoElemento({ ...nuevoElemento, imagen: e.target.value })
+          setNuevoElemento({ ...nuevoElemento, foto: e.target.value })
         }
       />
       <button onClick={agregarElemento}>Agregar</button>
@@ -137,21 +136,24 @@ export const TableChina = () => {
             </tr>
           </thead>
           <tbody>
-            {catalogo.map((elemento, index) => (
-              <tr key={index}>
-                <td>{elemento.iqms}</td>
-                <td>{elemento.familia}</td>
-                <td>{elemento.molde}</td>
-                <td>
-                  <img src={elemento.imagen} alt="" width={200} height={200} />
-                </td>
-                <td>
-                  <button onClick={() => eliminarElemento(elemento.iqms)}>
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {catalogo.map((elemento, index) => {
+              console.log(elemento.foto)
+              return (
+                <tr key={index}>
+                  <td>{elemento.iqms}</td>
+                  <td>{elemento.familia}</td>
+                  <td>{elemento.molde}</td>
+                  <td>
+                    <img src={elemento.foto} alt="" width={200} height={200} />
+                  </td>
+                  <td>
+                    <button onClick={() => eliminarElemento(elemento.iqms)}>
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
         {resultadoBusqueda && (
@@ -173,7 +175,7 @@ export const TableChina = () => {
                 <td>{resultadoBusqueda.molde}</td>
                 <td>
                   <img
-                    src={resultadoBusqueda.imagen}
+                    src={resultadoBusqueda.foto}
                     alt=""
                     width={200}
                     height={200}
