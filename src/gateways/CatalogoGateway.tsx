@@ -34,6 +34,15 @@ class CatalogoGateway {
     }
   }
 
+  async getByMolde(molde: string): Promise<CatalogoItem> {
+    try {
+      const response = await axios.get<CatalogoItem>(`${this.baseUrl}/${molde}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   // Agregar un nuevo elemento
   async create(data: CatalogoItem): Promise<CatalogoItem> {
     try {

@@ -20,6 +20,7 @@ export const TableChina = () => {
     foto: "",
   });
   const [busquedaIQMS, setBusquedaIQMS] = useState<number>(0);
+  const [busquedaMolde, setBusquedaMolde] = useState<string>("");
   const [resultadoBusqueda, setResultadoBusqueda] =
     useState<CatalogoItem | null>(null);
 
@@ -77,6 +78,20 @@ export const TableChina = () => {
       }
     }
   };
+
+  const buscarPorMolde = async (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.key === "Enter") {
+      try {
+        const resultado = await catalogoGateway.getByMolde(busquedaMolde);
+        setResultadoBusqueda(resultado); // Almacena el resultado de la búsqueda en el estado resultadoBusqueda
+        console.log("Resultado de la búsqueda:", resultado);
+      } catch (error) {
+        console.error("Error al realizar la búsqueda por IQMS:", error);
+      }
+    }
+  };
   return (
     <>
       <h2>Agregar Nuevo Elemento</h2>
@@ -124,6 +139,14 @@ export const TableChina = () => {
         onChange={(e) => setBusquedaIQMS(parseInt(e.target.value))}
         onKeyDown={buscarPorIQMS} // Llama a la función buscarPorIQMS cuando se presiona una tecla
       />
+      Buscar por Molde:
+      <input
+        type="text"
+        placeholder="Buscar por Molde"
+        value={busquedaMolde}
+        onChange={(e) => setBusquedaMolde((e.target.value))}
+        onKeyDown={buscarPorMolde} // Llama a la función buscarPorIQMS cuando se presiona una tecla
+      />
       <hr />
       <div className="contenedor-tabla-catalogo">
         <table>
@@ -137,7 +160,7 @@ export const TableChina = () => {
           </thead>
           <tbody>
             {catalogo.map((elemento, index) => {
-              console.log(elemento.foto)
+              console.log(elemento.foto);
               return (
                 <tr key={index}>
                   <td>{elemento.iqms}</td>
@@ -152,42 +175,41 @@ export const TableChina = () => {
                     </button>
                   </td>
                 </tr>
-              )
+              );
             })}
           </tbody>
         </table>
         {resultadoBusqueda && (
-        <div>
-          <h2>Resultado de la Búsqueda</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>IQMS</th>
-                <th>FAMILIA</th>
-                <th>MOLDE</th>
-                <th>FOTO</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{resultadoBusqueda.iqms}</td>
-                <td>{resultadoBusqueda.familia}</td>
-                <td>{resultadoBusqueda.molde}</td>
-                <td>
-                  <img
-                    src={resultadoBusqueda.foto}
-                    alt=""
-                    width={200}
-                    height={200}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      )}
+          <div>
+            <h2>Resultado de la Búsqueda</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>IQMS</th>
+                  <th>FAMILIA</th>
+                  <th>MOLDE</th>
+                  <th>FOTO</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{resultadoBusqueda.iqms}</td>
+                  <td>{resultadoBusqueda.familia}</td>
+                  <td>{resultadoBusqueda.molde}</td>
+                  <td>
+                    <img
+                      src={resultadoBusqueda.foto}
+                      alt=""
+                      width={200}
+                      height={200}
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
-      
     </>
   );
 };
