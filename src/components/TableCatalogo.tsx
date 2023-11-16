@@ -79,19 +79,7 @@ export const TableChina = () => {
     }
   };
 
-  const buscarPorMolde = async (
-    event: React.KeyboardEvent<HTMLInputElement>
-  ) => {
-    if (event.key === "Enter") {
-      try {
-        const resultado = await catalogoGateway.getByMolde(busquedaMolde);
-        setResultadoBusqueda(resultado); // Almacena el resultado de la búsqueda en el estado resultadoBusqueda
-        console.log("Resultado de la búsqueda:", resultado);
-      } catch (error) {
-        console.error("Error al realizar la búsqueda por IQMS:", error);
-      }
-    }
-  };
+
   return (
     <>
       <h2>Agregar Nuevo Elemento</h2>
