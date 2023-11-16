@@ -139,14 +139,7 @@ export const TableChina = () => {
         onChange={(e) => setBusquedaIQMS(parseInt(e.target.value))}
         onKeyDown={buscarPorIQMS} // Llama a la función buscarPorIQMS cuando se presiona una tecla
       />
-      Buscar por Molde:
-      <input
-        type="text"
-        placeholder="Buscar por Molde"
-        value={busquedaMolde}
-        onChange={(e) => setBusquedaMolde((e.target.value))}
-        onKeyDown={buscarPorMolde} // Llama a la función buscarPorIQMS cuando se presiona una tecla
-      />
+
       <hr />
       <div className="contenedor-tabla-catalogo">
         <table>
