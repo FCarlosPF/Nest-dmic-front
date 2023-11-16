@@ -20,7 +20,6 @@ export const TableChina = () => {
     foto: "",
   });
   const [busquedaIQMS, setBusquedaIQMS] = useState<number>(0);
-  const [busquedaMolde, setBusquedaMolde] = useState<string>("");
   const [resultadoBusqueda, setResultadoBusqueda] =
     useState<CatalogoItem | null>(null);
 
@@ -79,7 +78,7 @@ export const TableChina = () => {
     }
   };
 
-
+  
   return (
     <>
       <h2>Agregar Nuevo Elemento</h2>
@@ -127,7 +126,6 @@ export const TableChina = () => {
         onChange={(e) => setBusquedaIQMS(parseInt(e.target.value))}
         onKeyDown={buscarPorIQMS} // Llama a la función buscarPorIQMS cuando se presiona una tecla
       />
-
       <hr />
       <div className="contenedor-tabla-catalogo">
         <table>
