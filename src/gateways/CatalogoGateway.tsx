@@ -4,7 +4,7 @@ interface CatalogoItem {
   iqms: number;
   familia: string;
   molde: string;
-  foto: string;
+  imagen: string;
 }
 
 class CatalogoGateway {

@@ -50,7 +50,7 @@ export const Login= () => {
         if (response.data.role.includes('admin')) {
           navigate('/users')
         } else if (response.data.role.includes('user')) {
-          navigate('/catalogo')
+          navigate('/catalogos')
         } 
         console.log(response.data.role)
     } catch (error) {

@@ -6,10 +6,10 @@ interface CatalogoItem {
   iqms: number;
   familia: string;
   molde: string;
-  foto: string;
+  imagen: string;
 }
 
-export const Table = () => {
+export const TableChina = () => {
   const baseUrl = "https://nest-dmic-postgres.onrender.com/catalogo"; // Reemplaza esto con la URL de tu API
   const [catalogo, setCatalogo] = useState<CatalogoItem[]>([]);
   const catalogoGateway = new CatalogoGateway(baseUrl);
@@ -17,7 +17,7 @@ export const Table = () => {
     iqms: 0,
     familia: "",
     molde: "",
-    foto: "",
+    imagen: "",
   });
   const [busquedaIQMS, setBusquedaIQMS] = useState<number>(0);
   const [resultadoBusqueda, setResultadoBusqueda] =
@@ -43,7 +43,7 @@ export const Table = () => {
           iqms: 0,
           familia: "",
           molde: "",
-          foto: "",
+          imagen: "",
         });
       })
       .catch((error) =>
@@ -108,9 +108,9 @@ export const Table = () => {
       <input
         type="text"
         placeholder="Foto"
-        value={nuevoElemento.foto}
+        value={nuevoElemento.imagen}
         onChange={(e) =>
-          setNuevoElemento({ ...nuevoElemento, foto: e.target.value })
+          setNuevoElemento({ ...nuevoElemento, imagen: e.target.value })
         }
       />
       <button onClick={agregarElemento}>Agregar</button>
@@ -131,7 +131,7 @@ export const Table = () => {
           <thead>
             <tr>
               <th>IQMS</th>
-              <th>FAMILIA</th>
+              <th>IQMS2</th>
               <th>MOLDE</th>
               <th>FOTO</th>
             </tr>
@@ -143,7 +143,7 @@ export const Table = () => {
                 <td>{elemento.familia}</td>
                 <td>{elemento.molde}</td>
                 <td>
-                  <img src={elemento.foto} alt="" width={200} height={200} />
+                  <img src={elemento.imagen} alt="" width={200} height={200} />
                 </td>
                 <td>
                   <button onClick={() => eliminarElemento(elemento.iqms)}>
@@ -173,7 +173,7 @@ export const Table = () => {
                 <td>{resultadoBusqueda.molde}</td>
                 <td>
                   <img
-                    src={resultadoBusqueda.foto}
+                    src={resultadoBusqueda.imagen}
                     alt=""
                     width={200}
                     height={200}
