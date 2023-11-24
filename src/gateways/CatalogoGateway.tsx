@@ -27,7 +27,16 @@ class CatalogoGateway {
   // Obtener un elemento por su ID
   async getById(iqms: number): Promise<CatalogoItem> {
     try {
-      const response = await axios.get<CatalogoItem>(`${this.baseUrl}/${iqms}`);
+      const response = await axios.get<CatalogoItem>(`${this.baseUrl}/iqms/${iqms}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getByMolde(molde: string): Promise<CatalogoItem> {
+    try {
+      const response = await axios.get<CatalogoItem>(`${this.baseUrl}/molde/${molde}`);
       return response.data;
     } catch (error) {
       throw error;

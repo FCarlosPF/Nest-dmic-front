@@ -10,7 +10,7 @@ interface CatalogoItem {
 }
 
 export const TableChina = () => {
-  const baseUrl = "https://nest-dmic-postgres.onrender.com/catalogo"; // Reemplaza esto con la URL de tu API
+  const baseUrl = "http://localhost:3000/catalogo"; // Reemplaza esto con la URL de tu API
   const [catalogo, setCatalogo] = useState<CatalogoItem[]>([]);
   const catalogoGateway = new CatalogoGateway(baseUrl);
   const [nuevoElemento, setNuevoElemento] = useState<CatalogoItem>({
@@ -20,6 +20,8 @@ export const TableChina = () => {
     foto: "",
   });
   const [busquedaIQMS, setBusquedaIQMS] = useState<number>(0);
+  const [busquedaMolde, setBusquedaMolde] = useState<string>("");
+  
   const [resultadoBusqueda, setResultadoBusqueda] =
     useState<CatalogoItem | null>(null);
 
@@ -78,7 +80,21 @@ export const TableChina = () => {
     }
   };
 
-  
+  const buscarPorMolde = async (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+    if (event.key === "Enter") {
+      try {
+        const resultado = await catalogoGateway.getByMolde(busquedaMolde);
+        setResultadoBusqueda(resultado); // Almacena el resultado de la búsqueda en el estado resultadoBusqueda
+        console.log("Resultado de la búsqueda:", resultado);
+      } catch (error) {
+        console.error("Error al realizar la búsqueda por Molde:", error);
+      }
+    }
+  };
+
+
   return (
     <>
       <h2>Agregar Nuevo Elemento</h2>
@@ -125,6 +141,14 @@ export const TableChina = () => {
         value={busquedaIQMS}
         onChange={(e) => setBusquedaIQMS(parseInt(e.target.value))}
         onKeyDown={buscarPorIQMS} // Llama a la función buscarPorIQMS cuando se presiona una tecla
+      />
+        Buscar por Molde:
+      <input
+        type="text"
+        placeholder="Buscar por Molde"
+        value={busquedaMolde}
+        onChange={(e) => setBusquedaMolde((e.target.value))}
+        onKeyDown={buscarPorMolde} // Llama a la función buscarPorIQMS cuando se presiona una tecla
       />
       <hr />
       <div className="contenedor-tabla-catalogo">
