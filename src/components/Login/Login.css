@@ -1,0 +1,64 @@
+
+  body {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+.formulario-container {
+    background-color: #030467;
+    height: 100vh; 
+  }
+  
+  .form-title {
+    font-size: 1.8rem;
+    color: white;
+  }
+  
+  .banner-title {
+    font-size: 1.8rem;
+  }
+  
+  .banner-subtitle {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+  }
+  .form-label{
+    color:white;
+
+  }
+  .left-align-label {
+    text-align: left;
+  }
+  .form-text{
+    color:#bcb4b4;
+    font-size: 0.7em;
+  }
+  
+  .login-submit-button {
+    margin-top: 3vh;
+    background-color: #5CCEFF;
+    border: none;
+    padding: 0.4rem;
+    font-size: 1rem;
+    width: 10em;
+    border-radius: 0.5rem;
+    color: white;
+    box-shadow: 0 0.1rem #dad7d7;
+    cursor: pointer;
+  }
+  
+  .login-submit-button:active {
+    color: white;
+    transform: translateY(0.1rem);
+  }
+  
+  .login-submit-button:hover:not(:disabled) {
+    color: #5CCEFF;
+    background: white;
+    text-shadow: 0 0.01rem #bcb4b4;
+  }
+  
+  .login-submit-button:disabled {
+    cursor: auto;
+    color: grey;
+  }
+  
