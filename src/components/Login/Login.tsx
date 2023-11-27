@@ -94,7 +94,7 @@ export const Login = () => {
                 type="submit"
                 className="login-submit-button"
               >
-                Submit
+                Entrar
               </Button>
             </div>
           </Form>
