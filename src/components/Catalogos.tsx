@@ -13,6 +13,7 @@ export const Catalogos = () => {
     navigate('/catalogoQueretaro')
   }
 
+  console.log("prueba")
 
   return (
     <>
