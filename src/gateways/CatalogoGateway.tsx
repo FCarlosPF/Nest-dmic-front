@@ -1,10 +1,10 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 interface CatalogoItem {
   iqms: number;
   familia: string;
   molde: string;
-  foto: string;
+  imagen: ArrayBuffer | null;
 }
 
 class CatalogoGateway {
@@ -46,13 +46,18 @@ class CatalogoGateway {
   // Agregar un nuevo elemento
   async create(data: CatalogoItem): Promise<CatalogoItem> {
     try {
-      const response = await axios.post<CatalogoItem>(this.baseUrl, data);
+      const response: AxiosResponse<CatalogoItem> = await axios.post(this.baseUrl, data);
       return response.data;
-    } catch (error) {
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+        console.error('Error en la solicitud:', axiosError.message || axiosError.response?.data);
+      } else {
+        console.error('Error desconocido en la solicitud:', error);
+      }
       throw error;
     }
   }
-
   // Actualizar un elemento por su ID
   async update(iqms: number, data: CatalogoItem): Promise<CatalogoItem> {
     try {

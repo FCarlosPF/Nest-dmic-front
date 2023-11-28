@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import CatalogoGateway from "../gateways/CatalogoGateway";
 import "../css/TableCatalogo.css";
+import Barcode from "react-barcode";
+import { BarCode } from "./BarCode";
 
 interface CatalogoItem {
   iqms: number;
   familia: string;
   molde: string;
-  foto: string;
+  imagen: ArrayBuffer | null;
 }
 
 export const TableChina = () => {
@@ -17,11 +19,11 @@ export const TableChina = () => {
     iqms: 0,
     familia: "",
     molde: "",
-    foto: "",
+    imagen: null,
   });
   const [busquedaIQMS, setBusquedaIQMS] = useState<number>(0);
   const [busquedaMolde, setBusquedaMolde] = useState<string>("");
-  
+
   const [resultadoBusqueda, setResultadoBusqueda] =
     useState<CatalogoItem | null>(null);
 
@@ -36,16 +38,19 @@ export const TableChina = () => {
 
   const agregarElemento = (event: React.FormEvent) => {
     event.preventDefault();
-
+    const nuevoElementoConImagen = {
+      ...nuevoElemento,
+      imagen: nuevoElemento.imagen || null,
+    };
     catalogoGateway
-      .create(nuevoElemento)
+      .create(nuevoElementoConImagen)
       .then((data) => {
         setCatalogo([...catalogo, data]);
         setNuevoElemento({
           iqms: 0,
           familia: "",
           molde: "",
-          foto: "",
+          imagen: null,
         });
       })
       .catch((error) =>
@@ -94,6 +99,15 @@ export const TableChina = () => {
     }
   };
 
+  function arrayBufferToBase64(buffer: ArrayBuffer | null | undefined) {
+    if (!buffer) {
+      return null;
+    }
+  
+    const binary = new Uint8Array(buffer);
+    const base64 = btoa(String.fromCharCode(...binary));
+    return `data:image/jpeg;base64,${base64}`;
+  }
 
   return (
     <>
@@ -123,12 +137,26 @@ export const TableChina = () => {
         }
       />
       <input
-        type="text"
-        placeholder="Foto"
-        value={nuevoElemento.foto}
-        onChange={(e) =>
-          setNuevoElemento({ ...nuevoElemento, foto: e.target.value })
-        }
+        type="file"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+
+          if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              setNuevoElemento({
+                ...nuevoElemento,
+                imagen: reader.result as ArrayBuffer,
+              });
+            };
+            reader.readAsArrayBuffer(file);
+          } else {
+            setNuevoElemento({
+              ...nuevoElemento,
+              imagen: null,
+            });
+          }
+        }}
       />
       <button onClick={agregarElemento}>Agregar</button>
       <br />
@@ -142,12 +170,12 @@ export const TableChina = () => {
         onChange={(e) => setBusquedaIQMS(parseInt(e.target.value))}
         onKeyDown={buscarPorIQMS} // Llama a la función buscarPorIQMS cuando se presiona una tecla
       />
-        Buscar por Molde:
+      Buscar por Molde:
       <input
         type="text"
         placeholder="Buscar por Molde"
         value={busquedaMolde}
-        onChange={(e) => setBusquedaMolde((e.target.value))}
+        onChange={(e) => setBusquedaMolde(e.target.value)}
         onKeyDown={buscarPorMolde} // Llama a la función buscarPorIQMS cuando se presiona una tecla
       />
       <hr />
@@ -163,14 +191,24 @@ export const TableChina = () => {
           </thead>
           <tbody>
             {catalogo.map((elemento, index) => {
-              console.log(elemento.foto);
+              console.log(elemento.imagen);
+              const imagenSrc = arrayBufferToBase64(elemento.imagen);
+
               return (
                 <tr key={index}>
                   <td>{elemento.iqms}</td>
                   <td>{elemento.familia}</td>
                   <td>{elemento.molde}</td>
                   <td>
-                    <img src={elemento.foto} alt="" width={200} height={200} />
+                    {imagenSrc ? (
+                      <img src={imagenSrc} alt="" width={200} height={200} />
+                    ) : (
+                      <span>No hay imagen</span>
+                    )}
+                  </td>
+                  <td>
+                  <BarCode additionalProp={elemento.iqms}/>
+
                   </td>
                   <td>
                     <button onClick={() => eliminarElemento(elemento.iqms)}>
@@ -200,12 +238,7 @@ export const TableChina = () => {
                   <td>{resultadoBusqueda.familia}</td>
                   <td>{resultadoBusqueda.molde}</td>
                   <td>
-                    <img
-                      src={resultadoBusqueda.foto}
-                      alt=""
-                      width={200}
-                      height={200}
-                    />
+                     
                   </td>
                 </tr>
               </tbody>

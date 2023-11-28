@@ -1,6 +1,8 @@
 import Button from "react-bootstrap/Button";
 import "../css/Catalogos.css";
 import { useNavigate } from "react-router-dom";
+import { BarCode } from "./BarCode";
+import { BarReader } from "./BarReader";
 
 export const Catalogos = () => {
   const navigate = useNavigate();
@@ -25,6 +27,7 @@ export const Catalogos = () => {
       <Button variant="dark" className="catalogo" onClick={handleClickQueretaro}>
         Catalogo Queretaro
       </Button>
+
     </>
   );
 };
